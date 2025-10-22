@@ -52,7 +52,6 @@ public class WishController {
         service.delete(id);
         return "redirect:/wishes";
     }
-
 }
 
 
