@@ -18,6 +18,7 @@ public class WishRepo {
 
     private RowMapper<WishlistModel> wishlistRowMapper= (rs, rowNum) -> {
         return new WishlistModel(
+                rs.getInt("id"),
                 rs.getString("wishName"),
                 rs.getString("descriptions"),
                 rs.getDouble("prices"),
@@ -27,8 +28,41 @@ public class WishRepo {
 
     public List<WishlistModel> findAll(){
         String sql = "select * from Wish";
-        return jdbcTemplate.query(sql,)
+        return jdbcTemplate.query(sql,wishlistRowMapper);
     }
+
+    public WishlistModel findById(int id){
+        String sql = "select * from Wish where id = ?";
+        return jdbcTemplate.queryForObject(sql, wishlistRowMapper, id);
+    }
+
+    public int add(WishlistModel model){
+        String sql = "insert into wish (wishName, descriptions, prices, link) values (?,?,?,?)";
+        return jdbcTemplate.update(sql,
+                model.getName(),
+                model.getDescription(),
+                model.getPrice(),
+                model.getLink()
+                );
+    }
+
+    public int update(int id, WishlistModel updated){
+        String sql = "update wish set wishName=?, descriptions=?, prices=?, link=? where id=?";
+        return jdbcTemplate.update(sql,
+                updated.getName(),
+                updated.getDescription(),
+                updated.getPrice(),
+                updated.getLink(),
+                id
+        );
+    }
+
+    public int delete(int id){
+        String sql = "delete from wish where id=?";
+        return jdbcTemplate.update(sql,id);
+    }
+
+
 
 
 }

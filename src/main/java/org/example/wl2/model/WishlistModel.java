@@ -2,12 +2,14 @@ package org.example.wl2.model;
 
 public class WishlistModel {
 
+    private int id;
     private String name;
     private String description;
     private double price;
     private String link;
 
-    public WishlistModel(String name, String description,double price,String link){
+    public WishlistModel(int id, String name, String description,double price,String link){
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -15,6 +17,14 @@ public class WishlistModel {
     }
     public WishlistModel(){
 
+    }
+
+    public int getid(){
+        return id;
+    }
+
+    public void setid(int id){
+        this.id = id;
     }
 
     public String getName(){
