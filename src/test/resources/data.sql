@@ -1,0 +1,2 @@
+insert into wish (user_id,wishName,descriptions, prices, link)
+values ('2004','airpods',' trådløs høretelefoner','1500.00', 'https://www.elgiganten.dk/product/tv-lyd-smart-home/horetelefoner-tilbehor/horetelefoner/apple-airpods-4-2024-tradlose-hovedtelefoner-med-opladningsetui-usb-c/825340');
