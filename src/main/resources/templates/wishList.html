@@ -23,7 +23,7 @@
 <section>
     <h2>Tilføj nyt ønske</h2>
 
-    <form th:action="@a{/add}" th:object="${wish}" method="post">
+    <form th:action="@{/add}" th:object="${wish}" method="post">
         <label>Navn på ønske:</label><br>
         <input type="text" th:field="*{name}" placeholder="F.eks. Airpods Pro, gen2" required><br><br>
 
@@ -53,7 +53,7 @@
                 <span>ID: <span th:text="${wish.id}">1</span></span>
                 <span class="link">|</span>
                 <a th: href="${wish.link}" th:if="${wish.link != null and wish.link != ''}"
-                   th:text="$wish.link}" target="_blank">Se link</a>
+                   th:text="${wish.link}" target="_blank">Se link</a>
             </div>
 
             <div>
@@ -61,7 +61,7 @@
             </div>
 
             <div>
-                <span th:text="$wish.description}">Beskrivelse</span>
+                <span th:text="${wish.description}">Beskrivelse</span>
             </div>
 
             <div class="actions">
