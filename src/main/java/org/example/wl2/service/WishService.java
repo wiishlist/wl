@@ -35,7 +35,7 @@ public class WishService {
         repository.delete(id);
     }
 
-    public List<Wish> getAllWishesByUSer(int userId) {
+    public List<Wish> getAllWishesByUser(int userId) {
         return repository.findALlByUserId(userId);
     }
 }

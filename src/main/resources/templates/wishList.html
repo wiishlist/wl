@@ -65,6 +65,10 @@
                 <span th:text="${wish.description}">Beskrivelse</span>
             </div>
 
+            <div>
+                <span th:text="${wish.price}">Pris</span>
+            </div>
+
             <div class="actions">
                 <form th:action="@{'/delete/'+ ${wish.id}}" method="post" onsubmit="return confirm('Er du sikker at du vil slette dette ønske')";>
                     <button type="submit">Slet</button>

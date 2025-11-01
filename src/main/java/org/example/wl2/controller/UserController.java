@@ -55,6 +55,7 @@ public class UserController {
     public User getUserByEmail(@PathVariable String email){
         return service.getEmail(email);
    }
+
    @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();

@@ -39,7 +39,7 @@ public class WishRepo {
 
 
     public List<Wish> findALlByUserId(int userId) {
-        String sql = "select * from Wish where user_id = ?";
+        String sql = "select * from wish where user_id = ?";
         RowMapper<Wish> rowMapper = (rs, rowNum) -> {
             Wish w = new Wish();
             w.setId(rs.getInt("id"));
@@ -60,7 +60,7 @@ public class WishRepo {
 
 
     public List<Wish> findAll() {
-        String sql = "select * from Wish";
+        String sql = "select * from wish";
         return jdbcTemplate.query(sql, wishRowMapper);
     }
 

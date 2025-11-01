@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Objects;
+
 @Controller
 public class WishController {
     private final WishService service;
@@ -26,18 +28,13 @@ public class WishController {
     public String showWishes(HttpSession session, Model model) {
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) return "redirect:/login";
-        model.addAttribute("wishes", service.getAllWishesByUSer(userId));
+        Model wishes = model.addAttribute("wishes", service.getAllWishesByUser(userId));
         model.addAttribute("new_wish", new Wish());
         User user = userService.getById(userId);
         model.addAttribute("username", user.getUser());
         return "wishList";
     }
 
-    @GetMapping("/add")
-    public String addWish(Model model) {
-        model.addAttribute("wish", new Wish());
-        return "wishes";
-    }
 
     @PostMapping("/add")
     public String addWish(HttpSession session, @ModelAttribute Wish wish) {
@@ -56,14 +53,24 @@ public class WishController {
     }
 
     @PostMapping("/update")
-    public String saveUpdate(@ModelAttribute Wish model){
-        service.updateWish(model.getId(),model);
+    public String saveUpdate(@ModelAttribute Wish model, HttpSession session){
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) return "redirect:/login";
+
+        Wish existingWish = service.getById(model.getId());
+        if (Objects.equals(existingWish.getUserId(), userId)) {
+            service.updateWish(model.getId(),model);
+        }
         return "redirect:/wishes";
     }
 
     @PostMapping("/delete/{id}")
-    public String deleteWish(@PathVariable int id){
-        service.delete(id);
+    public String deleteWish(@PathVariable int id, HttpSession session){
+        Integer userId = (Integer) session.getAttribute("userId");
+        Wish wish = service.getById(id);
+        if (Objects.equals(wish.getUserId(), userId)) {
+            service.delete(id);
+        }
         return "redirect:/wishes";
     }
 }
