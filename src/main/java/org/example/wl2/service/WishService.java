@@ -1,17 +1,19 @@
 package org.example.wl2.service;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.example.wl2.model.Wish;
 import org.example.wl2.repository.WishRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class WishService {
     private final WishRepo repository;
 
+
     public WishService(WishRepo repository){
         this.repository = repository;
+
     }
 
     public List<Wish> getAll(){
@@ -36,6 +38,8 @@ public class WishService {
     }
 
     public List<Wish> getAllWishesByUser(int userId) {
-        return repository.findALlByUserId(userId);
+        List<Wish> list = repository.findAllByUserId(userId);
+        return list != null ? list : new ArrayList<>();
+
     }
 }

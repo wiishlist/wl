@@ -38,7 +38,7 @@ public class WishRepo {
     }
 
 
-    public List<Wish> findALlByUserId(int userId) {
+    public List<Wish> findAllByUserId(int userId) {
         String sql = "select * from wish where user_id = ?";
         RowMapper<Wish> rowMapper = (rs, rowNum) -> {
             Wish w = new Wish();

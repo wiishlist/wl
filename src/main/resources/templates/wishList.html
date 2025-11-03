@@ -19,7 +19,7 @@
 </head>
 <body>
 <h1> Min Ønskeliste</h1>
-<p th:text="'hej, ' + ${username} +  '! Velkommen til din ønskeliste. '"></p>
+<p th:text="'Hej, ' + ${username} +  '! Velkommen til din ønskeliste. '"></p>
 
 <section>
     <h2>Tilføj nyt ønske</h2>
@@ -32,7 +32,7 @@
         <input type="text" th:field="*{description}" placeholder="Kort beskrivelse"><br><br>
 
         <label>Pris:</label><br>
-        <input type="text" th:field="*{price}" step="0.01" placeholder="0.00"><br><br>
+        <input type="text" th:field="*{price}" step="0.01" placeholder="100 kr"><br><br>
 
         <label>Link:</label><br>
         <input type="text" th:field="*{link}" placeholder="https://..." ><br><br>
@@ -53,7 +53,7 @@
             <div class="meta small">
                 <span>ID: <span th:text="${wish.id}">1</span></span>
                 <span class="link">|</span>
-                <a th: href="${wish.link}" th:if="${wish.link != null and wish.link != ''}"
+                <a th:href="${wish.link}" th:if="${wish.link != null and wish.link != ''}"
                    th:text="${wish.link}" target="_blank">Se link</a>
             </div>
 

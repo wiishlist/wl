@@ -28,10 +28,14 @@ public class WishController {
     public String showWishes(HttpSession session, Model model) {
         Integer userId = (Integer) session.getAttribute("userId");
         if (userId == null) return "redirect:/login";
-        Model wishes = model.addAttribute("wishes", service.getAllWishesByUser(userId));
-        model.addAttribute("new_wish", new Wish());
+
         User user = userService.getById(userId);
+        if(user == null) return "redirect:/login";
+
         model.addAttribute("username", user.getUser());
+        model.addAttribute("wishes", service.getAllWishesByUser(userId));
+        model.addAttribute("new_wish", new Wish());
+
         return "wishList";
     }
 
