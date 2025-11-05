@@ -20,7 +20,5 @@ jobs:
           fetch-depth: 0
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2024.3
-        env:
-          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
-          args: --baseline,qodana.sarif.json
+          image: jetbrains/qodana-jvm-community:2024.3
