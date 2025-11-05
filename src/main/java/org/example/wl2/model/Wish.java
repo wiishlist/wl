@@ -89,9 +89,4 @@ public class Wish {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-    /* public String toString(){
-        return "name, " + name + " descriptions: " + description + " price: " + price + " Link = " + link;
-    }
-
-    */
 }

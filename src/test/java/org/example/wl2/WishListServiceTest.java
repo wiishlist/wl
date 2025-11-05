@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class WishListServiceTest {
     @Test
     void TestGetAll() {
         List<Wish> models = Arrays.asList(
-                new Wish("Stol", "brun læder", 750, "https://barns&nobles.com")
+                new Wish("Stol", "brun læder", new BigDecimal("750"), "https://barns&nobles.com", "dkk")
         );
 
         when(repo.findAll()).thenReturn(models);
