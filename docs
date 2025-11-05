@@ -1,1 +1,12 @@
-
+// ER model ->
++------------------+         +------------------------+
+|      Users       |         |         Wish           |
++------------------+         +------------------------+
+| id (PK)          |<------->| id (PK)               |
+| username (UQ)    | 1     M | user_id (FK -> users) |
+| email (UQ)       |         | wishName              |
+| passwords        |         | descriptions          |
++------------------+         | prices                |
+                             | link                  |
+                             | currency              |
+                             +------------------------+
