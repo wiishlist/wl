@@ -77,5 +77,19 @@ public class WishController {
         }
         return "redirect:/wishes";
     }
+
+    @GetMapping("/wishes/public/{userId}")
+    public String showPublicWishlist(@PathVariable int userId, Model model) {
+        User user = userService.getById(userId);
+        if (user == null) {
+            model.addAttribute("Error", "Brugeren findes ikke");
+            return "error";
+        }
+        model.addAttribute("username", user.getUser());
+        model.addAttribute("wishes", service.getAllWishesByUser(userId));
+        return "publicWishList";
+
+    }
+
 }
 

@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.util.List;
 
 @Repository
 public class UserRepo {
@@ -27,12 +28,14 @@ public class UserRepo {
 
     public User findByUserName(String user){
         String sql = "select * from users where username = ?";
-        return jdbcTemplate.queryForObject(sql, userRowMapper,user);
+        List<User> users = jdbcTemplate.query(sql, userRowMapper,user);
+        return users.isEmpty() ? null : users.get(0);
     }
 
     public User findByEmail(String email){
         String sql = "select * from users where email = ?";
-        return jdbcTemplate.queryForObject(sql, userRowMapper,email);
+        List<User> users = jdbcTemplate.query(sql, userRowMapper,email);
+        return users.isEmpty() ? null : users.get(0);
     }
 
 
@@ -49,7 +52,8 @@ public class UserRepo {
     }
     public User findById(int id) {
         String sql = "Select * from users where id = ?";
-        return jdbcTemplate.queryForObject(sql, userRowMapper, id);
+        List<User> users = jdbcTemplate.query(sql, userRowMapper,id);
+        return users.isEmpty() ? null : users.get(0);
     }
 
     public User save(User user) {

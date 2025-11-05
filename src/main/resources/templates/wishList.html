@@ -3,19 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Min Ønskeliste</title>
-  <style>
-    body{font-family: Arial, sans-serif; max-width: 900px;margin: 24px auto;}
-    form
-    label{display: block; margin-top: 8px;}
-    input[type="text"], input[type="number"] { width: 100%; padding:6px; box-sizing:border-box; }
-    .wish { border: 1px solid #ddd; padding:12px; margin-bottom:10px; border-radius:6px; }
-    .wish .meta { color:#666; font-size:0.9rem; margin-bottom:6px; }
-    .actions { margin-top:8px; }
-    .actions form { display:inline-block; margin-right:6px; }
-    .small { font-size:0.9rem; color:#444; }
-    .link { margin-left:8px; }
-    details summary { cursor:pointer; font-weight:600; }
-  </style>
+    <link rel="stylesheet" href="/style.css">
+
+
 </head>
 <body>
 <h1> Min Ønskeliste</h1>
@@ -99,6 +89,13 @@
 </section>
 
 <hr>
+<p>
+    Del din ønskeliste med andre:
+    <a th:href="@{'/wishes/public/' + ${session.userId}}" target="_blank">
+        Klik her for at delebart link
+    </a>
+</p>
+
 <p>
     <a th:href="@{/}">Tilbage til forsiden</a> |
     <a href="/logout" >Log ud</a>

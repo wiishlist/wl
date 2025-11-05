@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${username} + 's ønskeliste'">Ønskeliste</title>
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+
+<title th:text="${username} + 's ønskeliste'">Ønskeliste</title>
+<h1 th:text="'Ønskeliste for ' + ${username}">Ønskeliste</h1>
+
+<div th:if="${#lists.isEmpty(wishes)}" class="empty">
+    <p>Der er endnu ingen ønsker i denne liste</p>
+</div>
+
+<div th:each="wish : ${wishes}" class="wish">
+  <strong th:text="${wish.name}">Navn</strong><br>
+  <p th:text="${wish.description}">Beskrivelse</p>
+    <p><span class="price" th:text="'Pris: ' + ${wish.price} + ' kr'">Pris</span></p>
+    <a th:if="${wish.link}" th:href="${wish.link}" target="_blank">Se produkt</a>
+
+</div>
+
+<footer>
+    <p>Lav din egen ønskeliste på <a th:href="@{/}">WL2</a></p>
+</footer>
+
+</body>
+</html>
