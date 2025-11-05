@@ -17,23 +17,25 @@ public class WishRepo {
     }
     private RowMapper<Wish> wishRowMapper = (rs, rowNum) ->
             new Wish (
-        rs.getInt("id"),
-        rs.getInt("user_id"),
-        rs.getString("wishName"),
-        rs.getString("descriptions"),
-        rs.getDouble("prices"),
-        rs.getString("link")
-        );
+                    rs.getInt("id"),
+                    rs.getInt("user_id"),
+                    rs.getString("wishName"),
+                    rs.getString("descriptions"),
+                    rs.getBigDecimal("prices"),
+                    rs.getString("link"),
+                    rs.getString("currency")
+            );
 
 
     public int save(Wish wish) {
-        String sql = "insert into wish (user_id, wishName, descriptions, prices, link) values (?,?,?,?,?)";
+        String sql = "insert into wish (user_id, wishName, descriptions, prices, link, currency) values (?,?,?,?,?,?)";
         return jdbcTemplate.update(sql,
                 wish.getUserId(),
                 wish.getName(),
                 wish.getDescription(),
                 wish.getPrice(),
-                wish.getLink()
+                wish.getLink(),
+                wish.getCurrency()
         );
     }
 
@@ -46,8 +48,9 @@ public class WishRepo {
             w.setUserId(rs.getInt("user_id"));
             w.setName(rs.getString("wishName"));
             w.setDescription(rs.getString("descriptions"));
-            w.setPrice(rs.getDouble("prices"));
+            w.setPrice(rs.getBigDecimal("prices"));
             w.setLink(rs.getString("link"));
+            w.setCurrency(rs.getString("currency"));
             return w;
         };
         return jdbcTemplate.query(sql, rowMapper, userId);
@@ -66,12 +69,13 @@ public class WishRepo {
 
 
     public int update(int id, Wish updated) {
-        String sql = "update wish set wishName=?, descriptions=?, prices=?, link=? where id=?";
+        String sql = "update wish set wishName=?, descriptions=?, prices=?, link=?, currency=? where id=?";
         return jdbcTemplate.update(sql,
                 updated.getName(),
                 updated.getDescription(),
                 updated.getPrice(),
                 updated.getLink(),
+                updated.getCurrency(),
                 id
         );
     }

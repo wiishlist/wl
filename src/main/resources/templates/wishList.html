@@ -89,6 +89,36 @@
             text-align: center;
             color: #666;
         }
+        select {
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+            margin-top: 4px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #333;
+        }
+        button.delete {
+            margin-top: 12px;
+            padding: 8px 16px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+        }
+
+        button.delete:hover {
+            background-color: #c0392b;
+        }
+        button.delete:focus {
+            outline: none;
+        }
+
     </style>
 
 </head>
@@ -107,7 +137,19 @@
         <input type="text" th:field="*{description}" placeholder="Kort beskrivelse"><br><br>
 
         <label>Pris:</label><br>
-        <input type="text" th:field="*{price}" step="0.01" placeholder="100 kr"><br><br>
+        <div style="display:flex; gap:6px; align-items:center;">
+            <input type="number" th:field="*{price}" step="0.01" placeholder="100.00" required>
+            <select th:field="*{currency}" required>
+                <option value="DKK" selected>DKK</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+                <option value="SEK">SEK</option>
+                <option value="NOK">NOK</option>
+            </select>
+        </div><br><br>
+
+
 
         <label>Link:</label><br>
         <input type="text" th:field="*{link}" placeholder="https://..." ><br><br>
@@ -141,12 +183,14 @@
             </div>
 
             <div>
-                <span th:text="${wish.price}">Pris</span>
+                <span th:text="${#numbers.formatDecimal(wish.price, 1, 'COMMA', 2, 'POINT')} + ' ' + ${wish.currency}"></span>
+
             </div>
 
             <div class="actions">
-                <form th:action="@{'/delete/'+ ${wish.id}}" method="post" onsubmit="return confirm('Er du sikker at du vil slette dette ønske')";>
-                    <button type="submit">Slet</button>
+                <form th:action="@{'/delete/'+ ${wish.id}}" method="post"
+                       onsubmit="return confirm('Er du sikker at du vil slette dette ønske')";>
+                    <button type="submit" class="delete">Slet</button>
                 </form>
                 <details>
                     <summary>Rediger</summary>
@@ -160,7 +204,17 @@
                         <input type="text" name="description" th:value="${wish.description}">
 
                         <label>Pris</label>
-                        <input type="number" name="price" step="0.01" th:value="${wish.price}">
+                        <div style="display:flex; gap:6px; align-items:center;">
+                            <input type="number" name="price" step="0.01" th:value="${wish.price}" required>
+                            <select name="currency" required>
+                                <option value="DKK" th:selected="${wish.currency=='DKK'}">DKK</option>
+                                <option value="USD" th:selected="${wish.currency=='USD'}">USD</option>
+                                <option value="EUR" th:selected="${wish.currency=='EUR'}">EUR</option>
+                                <option value="GBP" th:selected="${wish.currency=='GBP'}">GBP</option>
+                                <option value="SEK" th:selected="${wish.currency=='SEK'}">SEK</option>
+                                <option value="NOK" th:selected="${wish.currency=='NOK'}">NOK</option>
+                            </select>
+                        </div>
 
                         <label>Link</label>
                         <input type="text" name="link" th:value="${wish.link}">

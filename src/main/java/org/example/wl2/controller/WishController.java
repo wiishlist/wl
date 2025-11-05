@@ -46,6 +46,11 @@ public class WishController {
         if (userId == null) return "redirect:/login";
 
         wish.setUserId(userId);
+
+        if (wish.getCurrency() == null || wish.getCurrency().isBlank()) {
+            wish.setCurrency("DKK");
+        }
+
         service.addWish(wish);
         return "redirect:/wishes";
     }
@@ -62,7 +67,11 @@ public class WishController {
         if (userId == null) return "redirect:/login";
 
         Wish existingWish = service.getById(model.getId());
+
         if (Objects.equals(existingWish.getUserId(), userId)) {
+            if (model.getCurrency() == null || model.getCurrency().isBlank()) {
+                model.setCurrency("DKK");
+            }
             service.updateWish(model.getId(),model);
         }
         return "redirect:/wishes";

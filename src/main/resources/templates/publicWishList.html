@@ -55,6 +55,10 @@
             text-align: center;
             color: #666;
         }
+        .price {
+            font-weight: bold;
+            color: #2c3e50;
+        }
     </style>
 </head>
 <body>
@@ -68,11 +72,13 @@
 
 <div th:each="wish : ${wishes}" class="wish">
     <div class="meta">
-        <a th:if="${wish.link}" th:href="${wish.link}" target="_blank">Se produkt</a>
+        <a th:if="${wish.link != null and wish.link != ''}" th:href="${wish.link}" target="_blank">Se produkt</a>
+
     </div>
     <strong th:text="${wish.name}">Navn</strong>
     <p th:text="${wish.description}">Beskrivelse</p>
-    <p th:text="'Pris: ' + ${wish.price} + ' kr'">Pris</p>
+    <p class="price" th:text="'Pris: ' + ${#numbers.formatDecimal(wish.price, 1, 'POINT', 2, 'COMMA')} + ' ' + ${wish.currency}">Pris</p>
+
 </div>
 
 <footer>
